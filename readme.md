@@ -4,18 +4,20 @@
 ## Getting Started
 
 Import the libraries:
-`
+
+```bash
 go get github.com/BurntSushi/toml
-`
+```
 
 Launch:
-```
+
+```bash
 go run main.go
 ```
 
-## Test 
+## Test
 
-```
+```bash
 go test ./...
 ```
 
@@ -26,10 +28,9 @@ go build main.go
 
 ## Library used
 
-
 * github.com/BurntSushi/toml  : for parse toml configuration file
 
-## Configuration file:
+## Configuration file
 
 ```toml
 [server]
@@ -38,5 +39,11 @@ port = 3300
 
 [resource]
 
-name = "Muletto1"
+name = "resuorce1"
+
+
+[Ips] 
+
+# Allowed "first", "last", "all"
+read = "first"
 ```
