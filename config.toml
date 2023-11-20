@@ -1,0 +1,11 @@
+[server]
+
+port = 3300
+
+[resource]
+
+# name = "Muletto1"
+
+[Ips] 
+
+read = "first"
