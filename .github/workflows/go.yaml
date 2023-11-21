@@ -44,7 +44,7 @@ jobs:
 #        path: out/*arm*
         
     - name: Archive Windows Amd64
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v3
       with:
         name: "httpserver-windows-amd64"
         path: out/*win*
