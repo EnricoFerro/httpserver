@@ -4,7 +4,10 @@ import (
 	"log"
 	"os"
 
+	"httpserver/argparser"
+
 	"github.com/BurntSushi/toml"
+	"github.com/jessevdk/go-flags"
 )
 
 const (
@@ -34,20 +37,46 @@ type Ips struct {
 // Reads info from config file
 func ReadConfig() Config {
 	var configfile = "config.toml"
+	var config Config
 	_, err := os.Stat(configfile)
 	if err != nil {
-		config := Config{
-			Server:   Server{Port: 3030},
+		config = Config{
+			Server:   Server{},
 			Resource: Resource{},
-			Ips:      Ips{Read: Last},
+			Ips:      Ips{},
 		}
-		return config
+	} else {
+
+		if _, err := toml.DecodeFile(configfile, &config); err != nil {
+			log.Fatal(err)
+		}
+
 	}
 
-	var config Config
-	if _, err := toml.DecodeFile(configfile, &config); err != nil {
-		log.Fatal(err)
+	// Parser Args
+	_, errParser := argparser.Parse()
+	if errParser != nil {
+		switch flagsErr := errParser.(type) {
+		case flags.ErrorType:
+			if flagsErr == flags.ErrHelp {
+				os.Exit(0)
+			}
+			os.Exit(1)
+		default:
+			os.Exit(1)
+		}
 	}
-	//log.Print(config.Index)
+	if argparser.Parsed.Port != 0 {
+		config.Server.Port = argparser.Parsed.Port
+	}
+	if argparser.Parsed.Ips != "" {
+		config.Ips.Read = argparser.Parsed.Ips
+	}
+	//if config.Resource == (Resource{}) {
+	if argparser.Parsed.Resource != "" {
+		config.Resource.Name = argparser.Parsed.Resource
+	}
+	//}
+
 	return config
 }

@@ -1,0 +1,50 @@
+name: Go Compile
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.17
+
+#    - name: Test
+#      run: go test -v ./...
+
+
+    - name: Build Windows HttpServer
+      run: GOOS=windows GOARCH=amd64 go build -o out/httpserver-win-amd64.exe main.go
+
+    - name: Build Linux Amd64 HttpServer
+      run: GOOS=linux GOARCH=amd64 go build -o out/httpserver-linux-amd64 main.go
+
+    - name: Build Linux Arm HttpServer
+      run: GOOS=linux GOARCH=arm go build -o out/httpserver-linux-arm  main.go
+
+    - name: Archive Linux Arm
+      uses: actions/upload-artifact@v2
+      with:
+        name: "httpserver-linux-arm"
+        path: out/*arm*
+
+    - name: Archive Linux Amd64
+      uses: actions/upload-artifact@v2
+      with:
+        name: "httpserver-linux-amd64"
+        path: out/*arm*
+        
+    - name: Archive Windows Amd64
+      uses: actions/upload-artifact@v2
+      with:
+        name: "httpserver-windows-amd64"
+        path: out/*win*

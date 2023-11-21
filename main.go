@@ -31,8 +31,8 @@ func getRoot(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("got / request\n")
 	w.Header().Set("Content-Type", "application/json")
 
-	//Get Resource
 	conf := config.ReadConfig()
+	//Get Resource
 	c := Content{}
 	if conf.Resource != (config.Resource{}) {
 		c = Content{Resource: conf.Resource.Name}
@@ -97,6 +97,7 @@ func main() {
 
 	conf := config.ReadConfig()
 
+	// Launch the server
 	http.HandleFunc("/", getRoot)
 	port := ":" + strconv.FormatInt(conf.Server.Port, 10)
 	fmt.Printf("Starting server at port: %s\n", port)
