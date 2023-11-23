@@ -30,7 +30,8 @@ type Content struct {
 func getRoot(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("got / request\n")
 	w.Header().Set("Content-Type", "application/json")
-
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	
 	conf := config.ReadConfig()
 	//Get Resource
 	c := Content{}
