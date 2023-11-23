@@ -42,9 +42,17 @@ jobs:
 #      with:
 #        name: "httpserver-linux-amd64"
 #        path: out/*arm*
-        
+    - name: Zip the files
+      run: zip -q httpserver-windows-amd64.zip out/*win*    
+
     - name: Archive Windows Amd64
       uses: actions/upload-artifact@v3
       with:
-        name: "httpserver-windows-amd64"
+        name: "httpserver-windows-amd64.exe"
         path: out/*win*
+
+    - name: Archive Windows Amd64
+      uses: actions/upload-artifact@v3
+      with:
+        name: "httpserver-windows-amd64.zip"
+        path: httpserver-windows-amd64.zip
