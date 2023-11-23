@@ -27,11 +27,18 @@ type Content struct {
 	HostName string `json:"hostname"`
 }
 
+func enableCors(w *http.ResponseWriter, origin string) {
+	if origin == "" {
+		origin = "*"
+	}
+	(*w).Header().Set("Access-Control-Allow-Origin", origin)
+}
+
 func getRoot(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("got / request\n")
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	
+	enableCors(&w, r.Header.Get("Origin"))
+
 	conf := config.ReadConfig()
 	//Get Resource
 	c := Content{}
