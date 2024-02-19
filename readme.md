@@ -46,7 +46,7 @@ name = "resuorce1"
 
 [Ips] 
 
-# Allowed "first", "last", "all"
+# Allowed "first", "last", "list"
 read = "first"
 ```
 
@@ -58,7 +58,7 @@ Usage:
 Application Options:
   -p, -port:                 Connect to the port specified. If not given, the default of 3030. (default: 3030) [$HTTPSERVER_PORT]
   -r, -resource:             Resource name for the device. If omitted will be ingnored [$HTTPSERVER_PORT]
-  -i, -ips:[first|last|all]  How to read the ips if omitted is ignored (default: last) [$HTTPSERVER_PORT]
+  -i, -ips:[first|last|list|0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20]  How to read the ips if omitted is ignored (default: last) [$HTTPSERVER_PORT]
 
 Help Options:
   -?                         Show this help message

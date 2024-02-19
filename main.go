@@ -15,6 +15,7 @@ import (
 )
 
 type Ips struct {
+	Counter     int    `json:"index"`
 	Ip          string `json:"ip"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
@@ -43,16 +44,18 @@ func getRoot(w http.ResponseWriter, r *http.Request) {
 	if conf.Resource != (config.Resource{}) {
 		c = Content{Resource: conf.Resource.Name}
 	}
-
+	counter := -1
 	//Get Ips
 	awins, err := adapters.Adapters()
 	if err == nil {
 		for _, awin := range awins {
 			//t.Logf("name=%s, description=%s\n", awin.Name, awin.Description)
 			for _, ipnet := range awin.IPNets {
-				if conf.Ips.Read == config.All {
+				if conf.Ips.Read == config.List {
 					if !ipnet.IP.IsLoopback() && !ipnet.IP.IsUnspecified() {
+						counter++
 						ip := Ips{
+							Counter:     counter,
 							Ip:          ipnet.IP.String(),
 							Name:        awin.Name,
 							Description: awin.Description,
@@ -77,6 +80,21 @@ func getRoot(w http.ResponseWriter, r *http.Request) {
 								Description: awin.Description,
 							}
 							c.Ip = ip.Ip
+						}
+					}
+				} else if conf.Ips.Read == config.C0 || conf.Ips.Read == config.C1 || conf.Ips.Read == config.C2 || conf.Ips.Read == config.C3 || conf.Ips.Read == config.C4 || conf.Ips.Read == config.C5 || conf.Ips.Read == config.C6 || conf.Ips.Read == config.C7 || conf.Ips.Read == config.C8 || conf.Ips.Read == config.C9 || conf.Ips.Read == config.C10 || conf.Ips.Read == config.C11 || conf.Ips.Read == config.C12 || conf.Ips.Read == config.C13 || conf.Ips.Read == config.C14 || conf.Ips.Read == config.C15 || conf.Ips.Read == config.C16 || conf.Ips.Read == config.C17 || conf.Ips.Read == config.C18 || conf.Ips.Read == config.C19 || conf.Ips.Read == config.C20 {
+					toReturn, _ := strconv.Atoi(conf.Ips.Read)
+					if c.Ip == "" {
+						if !ipnet.IP.IsLoopback() && !ipnet.IP.IsUnspecified() {
+							counter++
+							if counter == toReturn {
+								ip := Ips{
+									Ip:          ipnet.IP.String(),
+									Name:        awin.Name,
+									Description: awin.Description,
+								}
+								c.Ip = ip.Ip
+							}
 						}
 					}
 				}

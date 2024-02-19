@@ -12,8 +12,30 @@ import (
 
 const (
 	First string = "first"
-	Last         = "last"
-	All          = "all"
+	Last  string = "last"
+	List  string = "list"
+	C0    string = "0"
+	C1    string = "1"
+	C2    string = "2"
+	C3    string = "3"
+	C4    string = "4"
+	C5    string = "5"
+	C6    string = "6"
+	C7    string = "7"
+	C8    string = "8"
+	C9    string = "9"
+	C10   string = "10"
+	C11   string = "11"
+	C12   string = "12"
+	C13   string = "13"
+	C14   string = "14"
+	C15   string = "15"
+	C16   string = "16"
+	C17   string = "17"
+	C18   string = "18"
+	C19   string = "19"
+	C20   string = "20"
+	C21   string = "21"
 )
 
 type Config struct {

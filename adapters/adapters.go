@@ -68,4 +68,3 @@ func getAdapterList() (*syscall.IpAdapterInfo, error) {
 	}
 	return a, nil
 }
-
