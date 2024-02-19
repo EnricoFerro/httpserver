@@ -14,7 +14,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Set up Go
-      uses: actions/setup-go@v4
+      uses: actions/setup-go@v5
       with:
         go-version: 1.21
 
@@ -24,6 +24,9 @@ jobs:
 
     - name: Build Windows HttpServer
       run: GOOS=windows GOARCH=amd64 go build -o out/httpserver-win-amd64.exe main.go
+
+    - name: Build Windows ARM HttpServer
+      run: GOOS=windows GOARCH=arm  go build -o out/httpserver-win-arm.exe main.go
 
 #    - name: Build Linux Amd64 HttpServer
 #      run: GOOS=linux GOARCH=amd64 go build -o out/httpserver-linux-amd64 main.go
@@ -46,13 +49,13 @@ jobs:
       run: zip -q httpserver-windows-amd64.zip out/*win*    
 
     - name: Archive Windows Amd64
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: "httpserver-windows-amd64.exe"
         path: out/*win*
 
     - name: Archive Windows Amd64
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: "httpserver-windows-amd64.zip"
         path: httpserver-windows-amd64.zip
